@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+    <h1>BUSCAR DATO POR CEDULA</h1>
+ <h:form id="busquedaForm">
+        <h:panelGrid columns="2">
+            <h:outputLabel for="cedulaBusqueda" value="Buscar por cédula:" />
+            <h:inputText id="cedulaBusqueda" value="#{consumos.cedulaBusqueda}" />
+            <h:commandButton value="Buscar" action="#{consumos.buscarPorCedula()}" />
+        </h:panelGrid>
+    </h:form>
+   <h1>LISTADO DE CONSUMOS DE ENERGIA ELECTRICA</h1>
+    <h:form id="listadoForm">
+        <h:dataTable value="#{consumos.listado}" var="consumo">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{consumo.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cedula</f:facet>
+                #{consumo.cedula}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Consumo</f:facet>
+                #{consumo.consumo}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Deuda</f:facet>
+                #{consumo.deuda}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Acciones</f:facet>
+                <h:commandButton value="Editar" action="#{consumos.editar(consumo)}" />
+                <h:commandButton value="Eliminar" action="#{consumos.eliminar(consumo.id)}" />
+            </h:column>
+        </h:dataTable>
+        
+           <h1>EDITAR DATOS</h1>
+        <h:panelGrid columns="2" rendered="#{not empty consumos.consumo.id}">
+            <h:outputLabel for="cedula" value="Cedula:" />
+            <h:inputText id="cedula" value="#{consumos.consumo.cedula}" />
+            
+            <h:outputLabel for="consumo" value="Consumo:" />
+            <h:inputText id="consumo" value="#{consumos.consumo.consumo}" />
+            
+            <h:outputLabel for="deuda" value="Deuda:" />
+            <h:inputTextarea id="deuda" value="#{consumos.consumo.deuda}" />
+            
+            <h:commandButton value="Guardar Cambios" action="#{consumos.guardar()}" />
+        </h:panelGrid>
+        
+        <h:commandButton value="Volver" action="#{consumos.retroceder()}" />
+    </h:form>
+
+</body> 
+</html>
